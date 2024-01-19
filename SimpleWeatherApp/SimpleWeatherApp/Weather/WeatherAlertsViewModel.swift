@@ -9,13 +9,23 @@ import Foundation
 
 protocol WeatherAlertsViewModelable {
     var models: [WeatherAlertTableViewModel] { get }
+    var updateUI: (() -> Void)? { get set }
+    var onError: ((String) -> Void)? { get set }
     
     func loadWeatherAlert()
 }
 
 final class WeatherAlertsViewModel: WeatherAlertsViewModelable {
     
-    private(set) var models: [WeatherAlertTableViewModel]
+    var updateUI: (() -> Void)?
+    var onError: ((String) -> Void)?
+    
+    private(set) var models: [WeatherAlertTableViewModel] {
+        didSet {
+            updateUI?()
+        }
+    }
+    private let network = WeatherApiService()
     
     init(models: [WeatherAlertTableViewModel] = []) {
         self.models = models
@@ -24,11 +34,18 @@ final class WeatherAlertsViewModel: WeatherAlertsViewModelable {
 
 extension WeatherAlertsViewModel {
     func loadWeatherAlert() {
-        for index in 0...10 {
-            models.append(WeatherAlertTableViewModel(eventName: "EventNAME - \(index)",
-                                                     startDate: "startDate - \(index)",
-                                                     endDate: "endDate - \(index)",
-                                                     sourceAndDuration: "sourceAndDuration - \(index)"))
+        network.fetchWeatherAlerts { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let alerts):
+                    self?.models = alerts.compactMap { return WeatherAlertTableViewModel(eventName: $0.event,
+                                                                                         startDate: $0.effective.toReadableDate(),
+                                                                                         endDate: $0.ends?.toReadableDate() ?? "No date",
+                                                                                         sourceAndDuration: $0.senderName)}
+                case .failure(let error):
+                    self?.onError?(error.errorDescription)
+                }
+            }
         }
     }
 }

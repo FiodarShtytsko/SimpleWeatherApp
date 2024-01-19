@@ -18,6 +18,10 @@
 		CAC0240C2B5A24C900C66918 /* WeatherAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC0240B2B5A24C900C66918 /* WeatherAlert.swift */; };
 		CAC0240E2B5A25E900C66918 /* WeatherAlertsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC0240D2B5A25E900C66918 /* WeatherAlertsViewModel.swift */; };
 		CAC024112B5A28EB00C66918 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC024102B5A28EB00C66918 /* UITableView+.swift */; };
+		CAC024132B5A586900C66918 /* WeatherApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC024122B5A586900C66918 /* WeatherApiService.swift */; };
+		CAC024152B5A5D8900C66918 /* WeatherApiServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC024142B5A5D8900C66918 /* WeatherApiServiceError.swift */; };
+		CAC0241A2B5A60B100C66918 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC024192B5A60B100C66918 /* String+.swift */; };
+		CAC0241C2B5A61C100C66918 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC0241B2B5A61C100C66918 /* DateHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		CAC0240B2B5A24C900C66918 /* WeatherAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAlert.swift; sourceTree = "<group>"; };
 		CAC0240D2B5A25E900C66918 /* WeatherAlertsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAlertsViewModel.swift; sourceTree = "<group>"; };
 		CAC024102B5A28EB00C66918 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
+		CAC024122B5A586900C66918 /* WeatherApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApiService.swift; sourceTree = "<group>"; };
+		CAC024142B5A5D8900C66918 /* WeatherApiServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApiServiceError.swift; sourceTree = "<group>"; };
+		CAC024192B5A60B100C66918 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		CAC0241B2B5A61C100C66918 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +74,7 @@
 		CA3151FD2B57BC6E00921523 /* SimpleWeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				CAC024162B5A5EA900C66918 /* Services */,
 				CAC0240F2B5A28D700C66918 /* Support */,
 				CAC024082B5A244E00C66918 /* Weather */,
 				CA3151FE2B57BC6E00921523 /* AppDelegate.swift */,
@@ -110,8 +119,27 @@
 			isa = PBXGroup;
 			children = (
 				CAC024102B5A28EB00C66918 /* UITableView+.swift */,
+				CAC024192B5A60B100C66918 /* String+.swift */,
+				CAC0241B2B5A61C100C66918 /* DateHelper.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		CAC024162B5A5EA900C66918 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CAC024172B5A5EB800C66918 /* WeatherApi */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CAC024172B5A5EB800C66918 /* WeatherApi */ = {
+			isa = PBXGroup;
+			children = (
+				CAC024122B5A586900C66918 /* WeatherApiService.swift */,
+				CAC024142B5A5D8900C66918 /* WeatherApiServiceError.swift */,
+			);
+			path = WeatherApi;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,10 +216,14 @@
 			files = (
 				CAC0240E2B5A25E900C66918 /* WeatherAlertsViewModel.swift in Sources */,
 				CA3152032B57BC6E00921523 /* WeatherAlertsViewController.swift in Sources */,
+				CAC0241A2B5A60B100C66918 /* String+.swift in Sources */,
+				CAC024132B5A586900C66918 /* WeatherApiService.swift in Sources */,
 				CAC024062B5A21C200C66918 /* WeatherAlertTableViewCell.swift in Sources */,
 				CAC024112B5A28EB00C66918 /* UITableView+.swift in Sources */,
 				CAC0240C2B5A24C900C66918 /* WeatherAlert.swift in Sources */,
+				CAC024152B5A5D8900C66918 /* WeatherApiServiceError.swift in Sources */,
 				CA3151FF2B57BC6E00921523 /* AppDelegate.swift in Sources */,
+				CAC0241C2B5A61C100C66918 /* DateHelper.swift in Sources */,
 				CA3152012B57BC6E00921523 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

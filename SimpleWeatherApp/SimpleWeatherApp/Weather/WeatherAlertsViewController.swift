@@ -8,7 +8,7 @@
 import UIKit
 
 final class WeatherAlertsViewController: UIViewController {
-   
+    
     @IBOutlet private weak var tableView: UITableView!
     
     private var viewModel: WeatherAlertsViewModelable!
@@ -17,9 +17,24 @@ final class WeatherAlertsViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel = WeatherAlertsViewModel()
-        tableView.register(WeatherAlertTableViewCell.self)
         
+        viewModel.updateUI = { [weak self] in
+            self?.tableView.reloadData()
+        }
+        
+        viewModel.onError = { [weak self] errorMessage in
+            self?.presentErrorAlert(message: errorMessage)
+        }
+        
+        
+        tableView.register(WeatherAlertTableViewCell.self)
         viewModel.loadWeatherAlert()
+    }
+    
+    private func presentErrorAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
     }
 }
 
