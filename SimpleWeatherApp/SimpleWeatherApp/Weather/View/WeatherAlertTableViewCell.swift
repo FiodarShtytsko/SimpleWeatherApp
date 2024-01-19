@@ -12,10 +12,12 @@ struct WeatherAlertTableViewModel {
     let startDate: String
     let endDate: String
     let sourceAndDuration: String
+    let image: UIImage
 }
 
 final class WeatherAlertTableViewCell: UITableViewCell {
 
+    @IBOutlet private weak var avatarImageView: UIImageView!
     @IBOutlet private weak var eventLabel: UILabel!
     @IBOutlet private weak var startDateLabel: UILabel!
     @IBOutlet private weak var endDateLabel: UILabel!
@@ -30,5 +32,9 @@ final class WeatherAlertTableViewCell: UITableViewCell {
         startDateLabel.text = model.startDate
         endDateLabel.text = model.endDate
         sourceAndDurationLabel.text = model.sourceAndDuration
+    }
+    
+    func configure(image: UIImage) {
+        avatarImageView.image = image
     }
 }

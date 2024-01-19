@@ -22,6 +22,8 @@
 		CAC024152B5A5D8900C66918 /* WeatherApiServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC024142B5A5D8900C66918 /* WeatherApiServiceError.swift */; };
 		CAC0241A2B5A60B100C66918 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC024192B5A60B100C66918 /* String+.swift */; };
 		CAC0241C2B5A61C100C66918 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC0241B2B5A61C100C66918 /* DateHelper.swift */; };
+		CAC024222B5A7F8100C66918 /* ImageDonwloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC024212B5A7F8100C66918 /* ImageDonwloadService.swift */; };
+		CAC024242B5A892C00C66918 /* ImageDownloadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC024232B5A892B00C66918 /* ImageDownloadError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		CAC024142B5A5D8900C66918 /* WeatherApiServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApiServiceError.swift; sourceTree = "<group>"; };
 		CAC024192B5A60B100C66918 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		CAC0241B2B5A61C100C66918 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		CAC024212B5A7F8100C66918 /* ImageDonwloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDonwloadService.swift; sourceTree = "<group>"; };
+		CAC024232B5A892B00C66918 /* ImageDownloadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 		CAC024162B5A5EA900C66918 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CAC024202B5A7F6F00C66918 /* ImageDownload */,
 				CAC024172B5A5EB800C66918 /* WeatherApi */,
 			);
 			path = Services;
@@ -140,6 +145,15 @@
 				CAC024142B5A5D8900C66918 /* WeatherApiServiceError.swift */,
 			);
 			path = WeatherApi;
+			sourceTree = "<group>";
+		};
+		CAC024202B5A7F6F00C66918 /* ImageDownload */ = {
+			isa = PBXGroup;
+			children = (
+				CAC024212B5A7F8100C66918 /* ImageDonwloadService.swift */,
+				CAC024232B5A892B00C66918 /* ImageDownloadError.swift */,
+			);
+			path = ImageDownload;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,10 +234,12 @@
 				CAC024132B5A586900C66918 /* WeatherApiService.swift in Sources */,
 				CAC024062B5A21C200C66918 /* WeatherAlertTableViewCell.swift in Sources */,
 				CAC024112B5A28EB00C66918 /* UITableView+.swift in Sources */,
+				CAC024222B5A7F8100C66918 /* ImageDonwloadService.swift in Sources */,
 				CAC0240C2B5A24C900C66918 /* WeatherAlert.swift in Sources */,
 				CAC024152B5A5D8900C66918 /* WeatherApiServiceError.swift in Sources */,
 				CA3151FF2B57BC6E00921523 /* AppDelegate.swift in Sources */,
 				CAC0241C2B5A61C100C66918 /* DateHelper.swift in Sources */,
+				CAC024242B5A892C00C66918 /* ImageDownloadError.swift in Sources */,
 				CA3152012B57BC6E00921523 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

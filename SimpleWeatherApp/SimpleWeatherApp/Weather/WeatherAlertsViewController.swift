@@ -26,9 +26,14 @@ final class WeatherAlertsViewController: UIViewController {
             self?.presentErrorAlert(message: errorMessage)
         }
         
+        viewModel.onImageDownloaded = { [weak self] index, image in
+            let indexPath = IndexPath(row: index, section: 0)
+            self?.tableView.reloadRows(at: [indexPath], with: .fade)
+        }
+        
         
         tableView.register(WeatherAlertTableViewCell.self)
-        viewModel.loadWeatherAlert()
+        viewModel.loadWeatherData()
     }
     
     private func presentErrorAlert(message: String) {
@@ -45,8 +50,11 @@ extension WeatherAlertsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = viewModel.models[indexPath.row]
+        let image = viewModel.images[indexPath.row] ?? .placeholder
         let cell: WeatherAlertTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        viewModel.downloadImage(forIndex: indexPath.row)
         cell.configure(with: model)
+        cell.configure(image: image)
         return cell
     }
 }
