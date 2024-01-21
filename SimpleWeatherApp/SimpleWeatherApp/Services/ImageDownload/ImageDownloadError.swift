@@ -11,8 +11,9 @@ enum ImageDownloadError: Error {
     case networkError(Error)
     case dataIsNil
     case imageCreationFailed
+    case invalidURL
     
-    var errorDescription: String? {
+    var errorDescription: String {
         switch self {
         case .networkError(let error):
             return "Network error occurred: \(error.localizedDescription)"
@@ -20,6 +21,8 @@ enum ImageDownloadError: Error {
             return "No data received from the server."
         case .imageCreationFailed:
             return "Unable to create an image from the data."
+        case .invalidURL:
+            return "The URL provided was invalid."
         }
     }
 }

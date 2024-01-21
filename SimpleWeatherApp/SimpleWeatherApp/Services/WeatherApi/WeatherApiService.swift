@@ -7,7 +7,9 @@
 
 import Foundation
 
-import Foundation
+protocol WeatherApi {
+    func fetchWeatherAlerts(completion: @escaping (Result<[WeatherAlert], WeatherApiServiceError>) -> Void)
+}
 
 final class WeatherApiService {
     private let baseURLString = "https://api.weather.gov/alerts/active"
@@ -18,7 +20,7 @@ final class WeatherApiService {
     }
 }
 
-extension WeatherApiService {
+extension WeatherApiService: WeatherApi {
     func fetchWeatherAlerts(completion: @escaping (Result<[WeatherAlert], WeatherApiServiceError>) -> Void) {
         guard let url = constructURL() else {
             completion(.failure(.invalidURL))

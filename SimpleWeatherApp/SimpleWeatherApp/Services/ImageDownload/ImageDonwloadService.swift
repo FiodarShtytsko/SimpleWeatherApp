@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol ImageDownloadable {
+    func downloadImage(with id: Int,
+                       completion: @escaping (Result<UIImage, ImageDownloadError>) -> Void)
+}
+
 final class ImageDownloadService {
     private let imageCache = NSCache<NSString, UIImage>()
     private let urlSession: URLSession
@@ -16,7 +21,7 @@ final class ImageDownloadService {
     }
 }
 
-extension ImageDownloadService {
+extension ImageDownloadService: ImageDownloadable {
     func downloadImage(with id: Int,
                        completion: @escaping (Result<UIImage, ImageDownloadError>) -> Void) {
         if let image = getCachedImage(for: id) {
@@ -34,8 +39,13 @@ private extension ImageDownloadService {
     }
     
     func performNetworkRequest(completion: @escaping (Result<UIImage, ImageDownloadError>) -> Void) {
-        let imageURL = URL(string: "https://picsum.photos/1000")!
-        urlSession.dataTask(with: imageURL) { [weak self] data, response, error in
+        let imageURL = URL(string: "https://picsum.photos/1000")
+        guard let url = imageURL else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        urlSession.dataTask(with: url) { [weak self] data, response, error in
             DispatchQueue.main.async {
                 if let error = error {
                     completion(.failure(.networkError(error)))
@@ -47,7 +57,7 @@ private extension ImageDownloadService {
                     return
                 }
                 
-                self.handleDownloadedData(data, for: imageURL, completion: completion)
+                self.handleDownloadedData(data, for: url, completion: completion)
             }
         }.resume()
     }

@@ -13,7 +13,7 @@ protocol WeatherAlertsViewModelable {
 
     var updateUI: (() -> Void)? { get set }
     var onError: ((String) -> Void)? { get set }
-    var onImageDownloaded: ((Int, UIImage) -> Void)? { get set }
+    var onImageDownloaded: ((Int) -> Void)? { get set }
     
     func loadWeatherData()
     func downloadImage(forIndex index: Int)
@@ -23,7 +23,7 @@ final class WeatherAlertsViewModel: WeatherAlertsViewModelable {
     
     var updateUI: (() -> Void)?
     var onError: ((String) -> Void)?
-    var onImageDownloaded: ((Int, UIImage) -> Void)?
+    var onImageDownloaded: ((Int) -> Void)?
 
     private(set) var images: [Int: UIImage] = [:]
     private(set) var models: [WeatherAlertTableViewModel] {
@@ -31,18 +31,23 @@ final class WeatherAlertsViewModel: WeatherAlertsViewModelable {
             updateUI?()
         }
     }
-    private let network = WeatherApiService()
-    private let downloadService = ImageDownloadService()
+    
+    private let networkService: WeatherApi
+    private let downloadService: ImageDownloadable
 
-    init(models: [WeatherAlertTableViewModel] = []) {
+    init(models: [WeatherAlertTableViewModel] = [],
+         networkService: WeatherApi,
+         downloadService:  ImageDownloadable) {
         self.models = models
+        self.networkService = networkService
+        self.downloadService = downloadService
     }
 }
 
 extension WeatherAlertsViewModel {
     
     func loadWeatherData() {
-        network.fetchWeatherAlerts { [weak self] result in
+        networkService.fetchWeatherAlerts { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let alerts):
@@ -50,12 +55,10 @@ extension WeatherAlertsViewModel {
                             return WeatherAlertTableViewModel(eventName: $0.event,
                                                               startDate: $0.effective.toReadableDate(),
                                                               endDate: $0.ends?.toReadableDate() ?? "No date",
-                                                              sourceAndDuration: $0.senderName,
-                                                              image: .checkmark)
+                                                              sourceAndDuration: $0.senderName)
                         }
-                        
                     case .failure(let error):
-                        self?.onError?(error.localizedDescription)
+                        self?.onError?(error.errorDescription)
                     }
                 }
             }
@@ -68,9 +71,9 @@ extension WeatherAlertsViewModel {
                     switch result {
                     case .success(let image):
                         self?.images[index] = image
-                        self?.onImageDownloaded?(index, image)
+                        self?.onImageDownloaded?(index)
                     case .failure(let error):
-                        self?.onError?(error.localizedDescription)
+                        self?.onError?(error.errorDescription)
                     }
                 }
             }

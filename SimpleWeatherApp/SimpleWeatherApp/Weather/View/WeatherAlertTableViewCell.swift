@@ -12,7 +12,6 @@ struct WeatherAlertTableViewModel {
     let startDate: String
     let endDate: String
     let sourceAndDuration: String
-    let image: UIImage
 }
 
 final class WeatherAlertTableViewCell: UITableViewCell {
