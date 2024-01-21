@@ -51,11 +51,8 @@ extension WeatherAlertsViewModel {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let alerts):
-                        self?.models = alerts.compactMap {
-                            return WeatherAlertTableViewModel(eventName: $0.event,
-                                                              startDate: $0.effective.toReadableDate(),
-                                                              endDate: $0.ends?.toReadableDate() ?? "No date",
-                                                              sourceAndDuration: $0.senderName)
+                        self?.models = alerts.compactMap { [weak self] in
+                            return self?.makeWeatherAlertModel(with: $0)
                         }
                     case .failure(let error):
                         self?.onError?(error.errorDescription)
@@ -78,4 +75,21 @@ extension WeatherAlertsViewModel {
                 }
             }
         }
+}
+
+private extension WeatherAlertsViewModel {
+    func makeWeatherAlertModel(with model: WeatherAlert) -> WeatherAlertTableViewModel{
+        let readableStart = model.effective.toReadableDate()
+        let readableEnd = model.ends?.toReadableDate() ?? "No date"
+        
+        let eventName = "Name: \(model.event)"
+        let startDate = "Start: \(readableStart)"
+        let endDate = "End: \(readableEnd)"
+        let sourceAndDuration = "\(model.senderName): \(readableStart) - \(readableEnd)"
+        
+        return WeatherAlertTableViewModel(eventName: eventName,
+                                          startDate: startDate,
+                                          endDate: endDate,
+                                          sourceAndDuration: sourceAndDuration)
+    }
 }
